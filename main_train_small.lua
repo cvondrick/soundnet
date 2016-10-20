@@ -1,7 +1,6 @@
 require 'torch'
 require 'nn'
 require 'optim'
-require 'dpnn'
 
 -- to specify these at runtime, you can do, e.g.:
 --    $ lr=0.001 th main.lua
@@ -21,7 +20,7 @@ opt = {
   gpu = 1,              -- which GPU to use; consider using CUDA_VISIBLE_DEVICES instead
   cudnn = 1,            -- whether to use cudnn or not
   finetune = '',        -- if set, will load this network instead of starting from scratch
-  name = 'soundnet_small',        -- the name of the experiment
+  name = 'soundnet',        -- the name of the experiment
   randomize = 1,        -- whether to shuffle the data file or not
   display_port = 8001,  -- port to push graphs
   display_id = 1,       -- window ID when pushing graphs
@@ -151,7 +150,6 @@ if opt.gpu > 0 then
 end
 
 -- conver to cudnn if needed
--- if this errors on you, you can disable, but will be slightly slower
 if opt.gpu > 0 and opt.cudnn > 0 then
   require 'cudnn'
   net = cudnn.convert(net, cudnn)
@@ -191,14 +189,6 @@ local fx = function(x)
   for i=1,#labels do df_do[i]:mul(opt.lambda / #labels) end 
   net:backward(input, df_do)
 
---  local top1_acc = 0
---  for i=1,#labels do
---    _,argmax = output[i]:max(2)
---
---    top1_acc = top1_acc + argmax:view(-1):eq(labels[i]):float():mean()
---  end
---  print('top1 accuracy: ' .. (top1_acc / #labels)) 
-
   -- return gradients
   return err, gradParameters
 end
@@ -226,20 +216,11 @@ for epoch = 1,opt.niter do -- for each epoch
 
     -- logging
     if counter % 10 == 0 then
-      local debug_idx = torch.random(1,opt.batchSize)
       table.insert(history, {counter, err})
       disp.plot(history, {win=opt.display_id+1, title=opt.name, labels = {"iteration", "err"}})
-      disp.audio(torch.mul(data_im[debug_idx]:view(-1,1), 2^23), {win=opt.display_id+2, rate = 22050})
-      disp.image(image.load('/data/vision/torralba/crossmodal/flickr_videos/soundnet/frames/' .. data_extra[debug_idx] .. '/00000003.jpg'), {win=opt.display_id+3})
-      local score,argmax = data_label[debug_idx]:select(2,1):clone():view(-1):max(1)
-      disp.text(string.format('%0.4f %d', score[1],argmax[1]), {win=opt.display_id+5})
     
-      for j=1,1 do
-        if torch.type(net.modules[j]):find("Convolution") then
-          local w = net.modules[j].weight:clone():float():squeeze()
-          disp.image(w, {win=opt.display_id+30+j, title=("layer: %d, min: %.4f, max: %.4f"):format(j, w:min(), w:max())})
-        end
-      end
+      local w = net.modules[1].weight:clone():float():squeeze()
+      disp.image(w, {win=opt.display_id+30, title=("conv1 min: %.4f, max: %.4f"):format(w:min(), w:max())})
     end
     
     counter = counter + 1
@@ -259,22 +240,6 @@ for epoch = 1,opt.niter do -- for each epoch
       torch.save('checkpoints/' .. opt.name .. '/iter' .. counter .. '_net.t7', net:clearState())
       --torch.save('checkpoints/' .. opt.name .. '/iter' .. counter .. '_optim.t7', optimState)
       torch.save('checkpoints/' .. opt.name .. '/iter' .. counter .. '_history.t7', history)
-    end
-
-    -- iter 0:500 lr = 0.1
-    -- iter 500:1000 lr = 0.01
-    -- iter 1000:30000 lr = 0.001
-    -- iter 30000:inf lr = 0.0001
-    
-    -- decay the learning rate, if requested
-    local change_lr = false
-    if change_lr then
-      print('Decreasing learning rate to ' .. opt.lr)
-      -- create new optimState to reset momentum
-      optimState = {
-        learningRate = opt.lr,
-        beta1 = opt.beta1,
-      }
     end
   end
 end

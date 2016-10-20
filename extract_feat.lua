@@ -53,7 +53,6 @@ for line in io.lines(opt.list) do
 
   else
     print('Read ' .. line)
-
     local sound = audio.load(line)
 
     -- data preprocessing
