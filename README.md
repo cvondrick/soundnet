@@ -3,7 +3,7 @@ SoundNet
 
 Code for paper "SoundNet: Learning Sound Representations from Unlabeled Video" by Yusuf Aytar, Carl Vondrick, Antonio Torralba. NIPS 2016
 
-We learn rich natural sound representations by capitalizing on large amounts of unlabeled sound data collected in the wild. We leverage the natural synchronization between vision and sound to learn an acoustic representation using two-million unlabeled videos. Unlabeled video has the advantage that it can be economically acquired at massive scales, yet contains useful signals about natural sound. We propose a student-teacher training procedure which transfers discriminative visual knowledge from well established visual models (e.g. ImageNet and PlacesCNN) into the sound modality using unlabeled video as a bridge. Our sound representation yields significant performance improvements over the state-of-the-art results on standard benchmarks for acoustic scene/object classification. Visualizations suggest some high-level semantics automatically emerge in the sound network, even though it is trained without ground truth labels. 
+We learn rich natural sound representations by capitalizing on large amounts of unlabeled sound data collected in the wild. We leverage the natural synchronization between vision and sound to learn an acoustic representation using two-million unlabeled videos. We propose a student-teacher training procedure which transfers discriminative visual knowledge from well established visual models (e.g. ImageNet and PlacesCNN) into the sound modality using unlabeled video as a bridge.
 
 <img src='http://web.mit.edu/vondrick/soundnet/soundnet.jpg'>
 
