@@ -58,12 +58,25 @@ feat = net.modules[24].output:float()
 Training
 ========
 
-Coming soon
+The code for training is in `main_train.lua`, which will train the 8 layer SoundNet model. You can also use `main_train_small.lua` to train the 5 layer SoundNet model. To start training, just do:
+
+```bash
+$ CUDA_VISIBLE_DEVICES=0 th main_train.lua
+```
+
+The code for loading the data is in `data/donkey_audio.lua`. The training code will launch several threads. Each thread reads a different subset of the dataset. It will read MP3 files into a raw waveform. For the labels, it reads a large binary file that stores the class probabilities computed from ImageNet and Places networks.
+
+If you want to fine-tune SoundNet on your own dataset, you can use `main_finetune.lua`.
+
+Data
+====
+
+We plan to release 2 million MP3s and their corresponding class probabilities soon. Stay tuned.
 
 References
 ==========
 
-If you use this code in your research, please cite our paper:
+If you use SoundNet in your research, please cite our paper:
 
     Learning Sound Representations from Unlabeled Video 
     Yusuf Aytar, Carl Vondrick, Antonio Torralba
