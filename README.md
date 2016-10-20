@@ -13,6 +13,10 @@ Requirements
  - torch7 audio (and sox)
  - torch7 hdf5 (only for feature extraction)
  - probably a GPU
+ 
+Pretrained Model
+================
+We provide pre-trained models that are trained over 2,000,000 unlabeled videos. 
 
 Feature Extraction
 ==================
