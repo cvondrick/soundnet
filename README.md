@@ -16,7 +16,7 @@ Requirements
  
 Pretrained Model
 ================
-We provide pre-trained models that are trained over 2,000,000 unlabeled videos. You can download the 8 layer and 5 layer models [here](https://drive.google.com/file/d/0B-xMJ5CYz_F9S09HU0ZKd3EtWnc/view?usp=sharing). We recommend 
+We provide pre-trained models that are trained over 2,000,000 unlabeled videos. You can download the 8 layer and 5 layer models [here](https://drive.google.com/file/d/0B-xMJ5CYz_F9S09HU0ZKd3EtWnc/view?usp=sharing). We recommend the 8 layer network.
 
 Feature Extraction
 ==================
