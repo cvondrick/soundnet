@@ -78,6 +78,6 @@ References
 
 If you use SoundNet in your research, please cite our paper:
 
-    Learning Sound Representations from Unlabeled Video 
+    SoundNet: Learning Sound Representations from Unlabeled Video 
     Yusuf Aytar, Carl Vondrick, Antonio Torralba
     NIPS 2016
