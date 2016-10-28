@@ -7,6 +7,9 @@ We learn rich natural sound representations by capitalizing on large amounts of 
 
 <img src='http://web.mit.edu/vondrick/soundnet/soundnet.jpg'>
 
+Visualization of learned conv1 filters:
+<img src='http://web.mit.edu/vondrick/soundnet/conv1.png'>
+
 Requirements
 ============
  - torch7
