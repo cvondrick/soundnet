@@ -55,6 +55,25 @@ net:forward(sound)
 feat = net.modules[24].output:float()
 ```
 
+Finetuning
+==========
+
+If you want to fine-tune SoundNet on your own dataset, you can use `main_finetune.lua`. Create a text file that lists your MP3 files and their corresponding categories as integers. Each line lists one file in the format: filename [space] integer. For example:
+```
+/path/to/file1.mp3 1
+/path/to/file2.mp3 5
+/path/to/file3.mp3 2
+```
+The integer at the end of the text file specifies the category. Note they should start counting at 1 (not zero).
+
+Then, you can finetune SoundNet with the command:
+```
+finetune=models/soundnet8_final.t7 data_list=dataset.txt data_root=/ nClasses=5 name=mynet1 th main_finetune.lua
+```
+where the `data_list` variable points to your text file you created above, and `nClasses` specifies the number of categories you have.
+
+Note you may have to modify `main_finetune.lua` depending on your needs. This is meant to just get you started. In particular, you may need to adjust the `fineSize` and `loadSize`, which specify how many samples from the waveform to use.
+
 Training
 ========
 
@@ -65,8 +84,6 @@ $ CUDA_VISIBLE_DEVICES=0 th main_train.lua
 ```
 
 The code for loading the data is in `data/donkey_audio.lua`. The training code will launch several threads. Each thread reads a different subset of the dataset. It will read MP3 files into a raw waveform. For the labels, it reads a large binary file that stores the class probabilities computed from ImageNet and Places networks.
-
-If you want to fine-tune SoundNet on your own dataset, you can use `main_finetune.lua`.
 
 Data
 ====
