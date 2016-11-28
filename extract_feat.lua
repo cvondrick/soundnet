@@ -56,7 +56,7 @@ for line in io.lines(opt.list) do
     local sound = audio.load(line)
 
     -- data preprocessing
-    if sound:size(2) > 1 then sound = sound:select(2,1) end -- select first channel (mono)
+    if sound:size(2) > 1 then sound = sound:select(2,1):clone() end -- select first channel (mono)
     sound:mul(2^-23)                                        -- make range [-256, 256]
     sound = sound:view(1, 1, -1, 1)                         -- shape to BatchSize x 1 x DIM x 1
     sound = sound:cuda()                                    -- ship to GPU
