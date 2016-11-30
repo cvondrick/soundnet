@@ -5,10 +5,10 @@ Code for paper "[SoundNet: Learning Sound Representations from Unlabeled Video](
 
 We learn rich natural sound representations by capitalizing on large amounts of unlabeled sound data collected in the wild. We leverage the natural synchronization between vision and sound to learn an acoustic representation using two-million unlabeled videos. We propose a student-teacher training procedure which transfers discriminative visual knowledge from well established visual models (e.g. ImageNet and PlacesCNN) into the sound modality using unlabeled video as a bridge.
 
-<img src='http://web.mit.edu/vondrick/soundnet/soundnet.jpg'>
+<img src='http://projects.csail.mit.edu/soundnet/soundnet.jpg'>
 
 Visualization of learned conv1 filters:
-<img src='http://web.mit.edu/vondrick/soundnet/conv1.png'>
+<img src='http://projects.csail.mit.edu/soundnet/conv1.png'>
 
 Requirements
 ============
