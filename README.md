@@ -44,18 +44,11 @@ Advanced
  If you want to write your own feature extraction code, it is very easy in Torch:
 
 ```lua
+sound = audio.load('file.mp3'):select(2,1):clone():mul(2^-23):view(1,1-1,1):cuda()
+
 net = torch.load('soundnet8_final.t7')
-
-sound = audio.load('file.mp3')
-
-if sound:size(2) > 1 then sound = sound:select(2,1) end -- select first channel (mono)
-sound:mul(2^-23)                                        -- make range [-256, 256]
-sound = sound:view(1, 1, -1, 1)                         -- shape to BatchSize x 1 x DIM x 1
-sound = sound:cuda()                                    -- ship to GPU
-sound = sound:view(1, 1, -1, 1):cuda()
-
 net:forward(sound)
-feat = net.modules[24].output:float()
+features = net.modules[24].output:float()
 ```
 
 Finetuning
