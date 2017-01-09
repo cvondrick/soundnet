@@ -21,6 +21,19 @@ Pretrained Model
 ================
 We provide pre-trained models that are trained over 2,000,000 unlabeled videos. You can download the 8 layer and 5 layer models [here](http://data.csail.mit.edu/soundnet/soundnet_models_public.zip). We recommend the 8 layer network.
 
+Recognize Categories
+====================
+
+You can use SoundNet to recognize sounds or as features (see next section). To recognize objects and scenes, you can use our provided script. First, create a text file where each line lists an audio file you wish to process. We use MP3 files, but most audio formats should be supported. Then, extract predictions into HDF5 files like so:
+
+```bash
+$ list=data.txt th extract_predictions.lua
+```
+
+where `data.txt` is this text file. It will write HDF5 files to the location of the input files with the scores of each category. To map the dimension index back to the category name, use the files `categories/categories_places2.txt` for scenes and `categories/categories_imagenet.txt` for objects.
+
+The script will also output the top scoring object and scene category. E
+
 Feature Extraction
 ==================
 
