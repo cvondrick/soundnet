@@ -8,7 +8,7 @@ require 'cudnn'
 -- to specify these at runtime, you can do, e.g.:
 --    $ lr=0.001 th main.lua
 opt = {
-  dataset = 'audio_simple',   -- indicates what dataset load to use (in data.lua)
+  dataset = 'audio_labeled',   -- indicates what dataset load to use (in data.lua)
   nThreads = 16,        -- how many threads to pre-fetch data
   batchSize = 256,      -- self-explanatory
   loadSize = 22050*5,       -- when loading images, resize first to this size
