@@ -103,6 +103,8 @@ if opt.finetune == '' then -- build network from scratch
   net:add(nn.FlattenTable())
 
   local output_net = nn.ParallelTable()
+  -- There is a loop over 8 because SoundNet predicts 2 distributions (objects, scenes) for every 5 seconds.
+  -- The input is 20 seconds. So, this means there are 2 * 20 / 5 = 8 output distributions. 
   for i=1,8 do
     output_net:add(nn.Sequential():add(nn.Contiguous()):add(nn.LogSoftMax()):add(nn.Squeeze()))
   end
