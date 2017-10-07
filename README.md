@@ -50,6 +50,8 @@ By default, it will extract the `conv7` layer. You can extract other layers like
 ```bash
 $ list=data.txt layer=24 th extract_feat.lua
 ````
+
+The model will predict a matrix of size TIME x DIM where DIM is the feature dimensionality and TIME is relative to the length of the sound file. If you wish a fixed length vector, you can average-pool or max-pool over time.
  
 Advanced
 --------
